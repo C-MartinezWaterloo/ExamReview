@@ -60,20 +60,24 @@ def breadth_first_traversal(g, start_name):
     start_index = g.node_names[start_name]
     visited = [False] * g.num_nodes
 
-    DS = linked_list.Queue()
-    DS.add(start_index)
+    DS = linked_list.Queue()   # Setting a queue named DS, using the file linked_list, that is why it has that format
+    DS.add(start_index)      # add index of cue
 
     while not DS.is_empty():
-        cur = DS.get()
-        if not visited[cur]:
-            print(g.node_names_rev[cur])
-            visited[cur] = True
 
-            cur = g.nodes[cur].head
+## For each iteration, we a popping the element and then adding the neighbours 
+
+
+        cur = DS.get()     ## FIFO, get the first in out
+        if not visited[cur]:
+            print(g.node_names_rev[cur])  ## Print the actual data, i.e. "YYZ"
+            visited[cur] = True  # At the index corresponding to the value, mark it as True
+
+            cur = g.nodes[cur].head  # Go to the next node 
 
             while cur:
-                if not visited[cur.data]:
-                    DS.add(cur.data)
+                if not visited[cur.data]:  # this is the index
+                    DS.add(cur.data)   # add the index to the list
                 cur = cur.next
 
 
