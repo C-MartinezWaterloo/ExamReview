@@ -57,16 +57,24 @@ class GraphAdjancencyList:
     
 def breadth_first_traversal(g, start_name):
 
-    start_index
+    start_index = g.node_names[start_name]
+    visited = [False] * g.num_nodes
 
+    DS = linked_list.Queue()
+    DS.add(start_index)
 
+    while not DS.is_empty():
+        cur = DS.get()
+        if not visited[cur]:
+            print(g.node_names_rev[cur])
+            visited[cur] = True
 
+            cur = g.nodes[cur].head
 
-
-
-
-
-
+            while cur:
+                if not visited[cur.data]:
+                    DS.add(cur.data)
+                cur = cur.next
 
 
 
@@ -74,18 +82,34 @@ def breadth_first_traversal(g, start_name):
 
 
 if __name__ == '__main__':
+    # g = Graph(4) # Graph.__init__(g, 4)
+    # g.put_edge(1, 2) # Graph.put_edge(g, 1, 2)
+    # print(g.is_edge(1, 2))
 
-    g = GraphAdjancencyList(0)
 
-    g.add_node("YYZ")
-    g.add_node("YYX")
 
-    g.put_edge(0, 1)
+    # setting up a matrix
+    # import numpy as np
+    # M = np.array((10, 10)) # a 10x10 matrix
+    # M = np.zeros((10, 10)) # an all-zero 10x10 matrix
+    # M[0][1] # row 0, column 1
 
-    print(g.is_edge(0, 1))  # should print True
-    print(g.is_edge(1, 0))  # should print False, unless you added a reverse edge
+    airports = GraphAdjancencyList(0)
+    airports.add_node("YYZ")
+    airports.add_node("YVR")
+    airports.add_node("JFK")
+    
+    airports.put_edge_name("YVR", "YYZ")
+    airports.put_edge_name("YYZ", "YVR")
+    airports.put_edge_name("YYZ", "JFK")
+    
 
-    g.nodes[0].print_list()
+    breadth_first_traversal(airports, "YVR")
+    #    YYZ
+    #  / ^  \
+    # v  /    v
+    # YVR     JFK
+
 
 
 

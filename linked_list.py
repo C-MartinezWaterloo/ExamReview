@@ -7,7 +7,7 @@ class Queue:
     def add(self,item):
         self.items.insert(0, item)
 
-    def get(self,item):
+    def get(self):
         return self.items.pop()
 
     def is_empty(self):
