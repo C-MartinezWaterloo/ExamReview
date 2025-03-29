@@ -1,3 +1,31 @@
+class PriorityQueue():
+    def __init__(self):
+        self.queue = {}
+
+    def enqueue(self, elem, priority):
+        self.queue[elem] = priority
+
+    def find_min(self):
+        smallest = float('inf')
+        minkey = None
+        for key, value in self.queue.items():
+            if value < smallest:
+                smallest = value
+                minkey = key
+        return minkey
+
+    def extract_min(self):
+        val = self.find_min()
+        if val is not None:
+            del self.queue[val]
+        return val
+
+
+
+
+
+
+
 class CircularCueue:
     def __init__(self, spots):
         self.cue = [0] * spots
@@ -38,21 +66,22 @@ class CircularCueue:
 
 
     def cue_to_arr(self):
-        cur = [0] * self.size
+        cur = [0] * self.spots 
 
         index = self.startindex
 
         for i in range(5):
-            print(self.cue[(index + i) % self.size])
+            cur[i] = self.cue[(index + i) % self.spots]
+
+        return cur
 
 
     def printcueue(self):
         for i in range(5):
             print(self.cue[i])
 
-    def __lt__(self, other):
-        return self.cue_to_arr > other.cue_to_arr
-
+    def __gt__(self, other):
+        return self.cue_to_arr() > other.cue_to_arr()
 
 
 
@@ -78,6 +107,10 @@ if __name__ == "__main__":
     D.enqueue(1)
     D.enqueue(4)
     D.printcueue()
+    print(D.cue_to_arr())
+
+
+    print(D > C)
 
 
 
